@@ -1,7 +1,6 @@
 #creado por Angel Augusto Agudelo Zapata
 
 import graphics
-N = 8
 
 
 class Queen:
@@ -31,10 +30,10 @@ class Queen:
 			self.neighbor.qprint()
 		x = (self.row-1)*50 + 25
 		y = (self.col-1)*50 + 25
-		c = graphics.Circle(graphics.Point(x, y), 10)
-		c.setFill("blue")
-		c.setOutline("blue")
-		c.draw(win)
+		reina = graphics.Circle(graphics.Point(x, y), 10)
+		reina.setFill("black")
+		reina.setOutline("black")
+		reina.draw(win)
 
 	def can_attack(self,row,col):
 		# probar misma fila
@@ -49,19 +48,22 @@ class Queen:
 
 
 if __name__ == '__main__':
+	print ("Ingrese el numero de reinas: ")
+	N = input()
 	win = graphics.GraphWin("8 Reinas", 400, 400)
 	win.setBackground("white")
 	#esta parte hace el tablero
 	for c in range(N):
 		for r in range(N):
-			x = c*50
-			y = r*50
-			a = graphics.Rectangle(graphics.Point(x, y), graphics.Point(x+50, y+50))
+			x = c*(400/N)
+			y = r*(400/N)
+			a = graphics.Rectangle(graphics.Point(x, y),
+			                       graphics.Point(x+(400/N), y+(400/N)))
 			if ((r-c)%2 == 0):
-				a.setFill("white")
-				a.setOutline("white")
+				a.setFill(graphics.color_rgb(238, 213, 183))
+				a.setOutline(graphics.color_rgb(238, 213, 183))
 			else:
-				a.setFill("black")
+				a.setFill(graphics.color_rgb(102, 51, 0))
 			a.draw(win)
 	q = None
 	for i in range(N):
