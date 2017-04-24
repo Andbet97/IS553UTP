@@ -92,7 +92,7 @@ class Board(object):
 		for i in range(N):
 			for j in range(N):
 				if puzzle[i][j] == 0: continue
-				self.cells[i][j].setValue(puzzle[i][j])
+				self.cells[i][j].set_value(puzzle[i][j])
 
 	def _setup_from_str(self, puzzle):
 		N = len(self)
@@ -118,6 +118,7 @@ class Board(object):
 		return str
 
 #fd = open('sudoku.txt')
+#fd.readline()
 #fd.readline()
 #fd.readline()
 #p = fd.readline()
