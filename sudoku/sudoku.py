@@ -16,6 +16,9 @@ class Cell(Observable):
 		for val in self.values:
 			yield val
 
+	def __len__(self):
+		return len(self.values)
+
 	def set_value(self, value):
 		self.values = [value]
 		self.is_solved = True
@@ -42,8 +45,8 @@ class Cell(Observable):
 		#if self.row == 5 and self.col == 5:
 		#	print(value, self.values)
 		if value in self.values: self.values.remove(value)
-		if not self.is_solved and len(self.values) == 1:
-			self.set_value(self.values[0])
+		#if not self.is_solved and len(self.values) == 1:
+			#self.set_value(self.values[0])
 
 '''
 Representa el tablero del Sudoku
@@ -72,7 +75,7 @@ class Board(object):
 			str += '\n'
 			if (i + 1) % 3 == 0:
 				str += '+---------+---------+---------+\n'
-		str += '\n' + self.candidates()
+		#str += '\n' + self.candidates()
 
 		return str
 
@@ -116,6 +119,33 @@ class Board(object):
 					str += '{} '.format(k)
 				str += '\n'
 		return str
+
+	def clone(self):
+		N = 9
+		new = []
+		for i in range(N):
+			new.append([])
+			for j in range(N):
+				new[i].append(self.cells[i][j].get_value())
+		return new
+
+	def is_solved(self):
+		for i in range(9):
+			for j in range(9):
+				if not self.cells[i][j].is_solved:
+					return False
+		return True
+
+	def minimo(self):
+		r = []
+		mini = 10
+		for row in range(9):
+			for col in range(9):
+				if (len(self.cells[row][col]) < mini and
+				not self.cells[row][col].is_solved):
+					mini = len(self.cells[row][col])
+					r = [mini, row, col]
+		return r
 
 #fd = open('sudoku.txt')
 #fd.readline()
